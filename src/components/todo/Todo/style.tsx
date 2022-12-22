@@ -5,7 +5,6 @@ import Form from "@/components/common/Form";
 import Input from "@/components/common/Input";
 import { flexBox, flexCenter } from "@styles/mixin";
 
-
 export const Styled = {
   Root: styled.li`
     ${flexBox({ content: "space-between", items: "center" })}

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Styled = {
-
   Input: styled.input`
     width: 25rem;
 
@@ -25,13 +24,11 @@ export const Styled = {
     text-align: center;
   `,
 
-    Main: styled.main`
-    display:flex;
-     flex-direction: column;
+  Main: styled.main`
+    display: flex;
+    flex-direction: column;
     margin-top: 3rem;
   `,
 };
 
-
-  // ${flexCenter("column")};
-
+// ${flexCenter("column")};

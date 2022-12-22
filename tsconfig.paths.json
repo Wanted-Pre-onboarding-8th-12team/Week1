@@ -7,7 +7,7 @@
       "@styles/*": ["styles/*"],
       "@pages/*": ["pages/*"],
       "@router": ["router"],
-      "@components" : ["components/*"]
+      "@components": ["components/*"]
     }
   }
 }
