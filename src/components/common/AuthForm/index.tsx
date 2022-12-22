@@ -25,7 +25,7 @@ AuthForm.Login = () => {
       <Input type='password' name='password' placeholder='password' />
 
       <Styled.ButtonWrapper>
-        <Styled.Button type='submit' disabled={true}>
+        <Styled.Button type='submit' disabled={false}>
           Login
         </Styled.Button>
         <Link to={"/join"}>
@@ -48,7 +48,7 @@ AuthForm.Join = () => {
       <Input type='password' name='pw-check' placeholder='password check' />
 
       <Styled.ButtonWrapper>
-        <Styled.Button type='submit' disabled={true}>
+        <Styled.Button type='submit' disabled={false}>
           Join
         </Styled.Button>
         <Link to={"/"}>
