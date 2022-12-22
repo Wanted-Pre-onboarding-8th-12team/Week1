@@ -7,6 +7,6 @@ import Router from "@router";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <StrictMode>
-    <Router/>
+    <Router />
   </StrictMode>,
 );
