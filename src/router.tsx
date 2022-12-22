@@ -9,13 +9,14 @@ import ToDo from "@pages/ToDo";
 
 import App from "./App";
 import Auth from "./pages/Auth";
+import Error from "./pages/Error";
 import { Join } from "./pages/Join";
 import { Login } from "./pages/Login";
 import { joinAction, loginAction } from "./utils/actions";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/'>
+    <Route path='/' errorElement={<Error />}>
       <Route element={<App />}>
         <Route
           index
