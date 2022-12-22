@@ -29,13 +29,20 @@ const router = createBrowserRouter(
         <Route
           path='join'
           element={
-            <Auth to='/' login={false}>
+            <Auth to='/todo' login={true}>
               <Join />
             </Auth>
           }
           action={joinAction}
         />
-        <Route path='todo' element={<ToDo />} />
+        <Route
+          path='todo'
+          element={
+            <Auth to='/' login={false}>
+              <ToDo />
+            </Auth>
+          }
+        />
       </Route>
     </Route>,
   ),
