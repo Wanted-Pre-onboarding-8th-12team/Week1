@@ -24,7 +24,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "postinstall": "hucky install",
+    "postinstall": "husky install",
     "format": "prettier --cache --write .",
     "lint-staged": "lint-staged"
   },
