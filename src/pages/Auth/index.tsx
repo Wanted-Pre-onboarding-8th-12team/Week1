@@ -1,6 +1,8 @@
+import { Styled } from "./style"
+
 function Auth() {
   return (
-    <div>Auth</div>
+    <Styled.Wrapper>Auth</Styled.Wrapper>
   )
 }
 
