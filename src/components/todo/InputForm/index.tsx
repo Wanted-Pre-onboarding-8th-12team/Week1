@@ -3,7 +3,6 @@ import Input from "@/components/common/Input";
 import { Styled } from "./style";
 
 function InputForm() {
-  
   return (
     <Styled.Root>
       <Styled.Form method='post'>
