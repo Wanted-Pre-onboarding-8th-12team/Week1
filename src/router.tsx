@@ -5,14 +5,15 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import ToDo from "@pages/ToDo";
-
 import App from "./App";
 import Auth from "./pages/Auth";
 import Error from "./pages/Error";
 import { Join } from "./pages/Join";
 import { Login } from "./pages/Login";
+import Todo, { todoLoader } from "./pages/Todo";
 import { joinAction, loginAction } from "./utils/actions";
+import { todoAction } from "./utils/actions/todo";
+import { withAction } from "./utils/actions/todo/withAction";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,9 +41,11 @@ const router = createBrowserRouter(
           path='todo'
           element={
             <Auth to='/' login={false}>
-              <ToDo />
+              <Todo />
             </Auth>
           }
+          action={withAction(todoAction)}
+          loader={todoLoader}
         />
       </Route>
     </Route>,
