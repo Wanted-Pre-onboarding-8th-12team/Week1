@@ -18,22 +18,10 @@
 
 ## 👨‍👩‍👧‍👦 Members
 
-| 류지창                                                                    | 박준하 | 백광천 | 유제원 | 정세연 | 조영일 | 김만중 |
-| ------------------------------------------------------------------------- | ------ | ------ | ------ | ------ | ------ | ------ |
-| ![깃헙프로필](https://avatars.githubusercontent.com/u/104156381?s=70&v=4) |
-| ![깃헙프로필](https://avatars.githubusercontent.com/u/85827017?s=70&v=4)  |
-| ![깃헙프로필](https://avatars.githubusercontent.com/u/82658528?s=70&v=4)  |
-| ![깃헙프로필](https://avatars.githubusercontent.com/u/96014828?s=70&v=4)  |
-| ![깃헙프로필](https://avatars.githubusercontent.com/u/79056677?s=70&v=4)  |
-| ![깃헙프로필](https://avatars.githubusercontent.com/u/86599495?s=70&v=4)  |
-| ![깃헙프로필](???)                                                        |
-| [RyuJiChang](https://github.com/RyuJiChang)                               |
-| [harseille](https://github.com/harseille)                                 |
-| [back0202](https://github.com/back0202)                                   |
-| [LLSJYY](https://github.com/LLSJYY)                                       |
-| [n0eyes](https://github.com/n0eyes)                                       |
-| [young1the](https://github.com/young1the)                                 |
-| [???](???)                                                                |
+| 류지창                                                                                           | 박준하                                                                                          | 백광천                                                                                          | 유제원                                                                                          | 정세연                                                                                          | 조영일                                                                                          |
+| ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| <img src="https://avatars.githubusercontent.com/u/104156381?s=70&v=4" width="160" height="160"/> | <img src="https://avatars.githubusercontent.com/u/85827017?s=70&v=4" width="160" height="160"/> | <img src="https://avatars.githubusercontent.com/u/82658528?s=70&v=4" width="160" height="160"/> | <img src="https://avatars.githubusercontent.com/u/96014828?s=70&v=4" width="160" height="160"/> | <img src="https://avatars.githubusercontent.com/u/79056677?s=70&v=4" width="160" height="160"/> | <img src="https://avatars.githubusercontent.com/u/86599495?s=70&v=4" width="160" height="160"/> |
+| [RyuJiChang](https://github.com/RyuJiChang)                                                      | [harseille](https://github.com/harseille)                                                       | [back0202](https://github.com/back0202)                                                         | [LLSJYY](https://github.com/LLSJYY)                                                             | [n0eyes](https://github.com/n0eyes)                                                             | [young1the](https://github.com/young1the)                                                       |
 
 ---
 
@@ -159,12 +147,73 @@ function Form({ children, ...props }: PropsWithChildren<Unpacked<typeof RouterFo
 ```
 
 3. ESLint
+   의존성을 고려해서 import/order를 설정
+
+```json
+"import/order": [
+  "error",
+  {
+    "groups": ["builtin", "external", "internal", "index"],
+    "pathGroups": [
+      {
+        "pattern": "react",
+        "group": "external",
+        "position": "before"
+      },
+      {
+        "pattern": "@*/**",
+        "group": "internal"
+      },
+      {
+        "pattern": "./**",
+        "group": "index"
+      }
+    ],
+    "pathGroupsExcludedImportTypes": ["react"],
+    "alphabetize": {
+      "order": "asc"
+    },
+    "newlines-between": "always"
+  }
+],
+```
 
 ### 라우팅
 
-#### 인증/인가 처리
+**인증/인가 처리**
+`Auth` 컴포넌트를 페이지 상단에 두어 authorization을 체크한다.
 
-`Auth` 컴포넌트를 페이지 상단에 두어
+```tsx
+// Auth 컴포넌트의 child에 login일 필요 여부를 props로 내린다.
+<Route
+  path='join'
+  element={
+    <Auth to='/todo' login={true}>
+      <Join />
+    </Auth>
+  }
+/>
+<Route
+  path='todo'
+  element={
+    <Auth to='/' login={false}>
+      <ToDo />
+    </Auth>
+  }
+/>
+```
+
+```tsx
+const Auth = (props: PropsWithChildren<AuthProps>): JSX.Element => {
+  const { children, to, login } = props;
+  const user = localStorage.getItem("user");
+
+  if (login && user) return <Navigate to={to} replace />;
+  if (!login && !user) return <Navigate to={to} replace />;
+
+  return <>{children}</>;
+};
+```
 
 ### 페이지 컴포넌트 분리
 
@@ -172,11 +221,74 @@ function Form({ children, ...props }: PropsWithChildren<Unpacked<typeof RouterFo
 
 ### API 연동
 
-### 상태관리
+1. **Axios 공통 로직 분리**
+   REST API 통신과 에러처리를 위해 반복되는 로직 부분을 하나의 함수로 만들어서 재사용성 증대
+
+```ts
+export async function to<T>(promise: Promise<T>): Promise<[null, T] | [unknown, null]> {
+  try {
+    return [null, await promise];
+  } catch (error) {
+    if (axios.isAxiosError(error)) alert(error.response?.data.message);
+    else throw error;
+
+    return [error, null];
+  }
+}
+```
+
+2. 관심사에 따른 request 요청 분리
+   유지보수성을 높이기 위해 관심사를 분리하여 api 요청을 관리했다.
+
+```ts
+// Auth
+export async function join({ email, password }: AuthRequest) {
+  const { data } = await client.post<AuthResponse>(PATH.JOIN, { ... });
+
+  return data;
+}
+
+export async function login({ email, password }: AuthRequest) {
+  const { data } = await client.post<AuthResponse>(PATH.LOGIN, { ... });
+
+  localStorage.setItem("user", data.access_token);
+  client.defaults.headers["Authorization"] = `Bearer ${data.access_token}`;
+
+  return data;
+}
+```
+
+```ts
+// Todo
+export const getToDo = async () => {
+  const { data } = await client<GetToDoResponse>(PATH.GET_TODO);
+
+  return data;
+};
+
+export const createToDo = async (payload: CreateToDoRequest) => {
+  const { data } = await client.post<CreateToDoResponse>(PATH.CREATE_TODO, payload);
+
+  return data;
+};
+
+export const updateToDo = async ({ id, todo, isCompleted }: UpdateToDoRequest) => {
+  const { data } = await client.put<UpdateToDoResponse>(`${PATH.UPDATE_TODO}/${id}`, {
+    todo,
+    isCompleted,
+  });
+
+  return data;
+};
+
+export const deleteToDo = async ({ id }: DeleteToDoRequest) => {
+  const { data } = await client.delete<DeleteToDoResponse>(`${PATH.DELETE_TODO}/${id}`);
+
+  return data;
+};
+```
 
 ### 최적화
-
-### 이슈 PR관리
 
 ---
 
