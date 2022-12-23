@@ -23,7 +23,7 @@ function Todo(props: IToDoProps) {
 
 export default Todo;
 
-Todo.View = function View(props: IChildrenProps) {
+Todo.View = (props: IChildrenProps) => {
   const {
     data: { id, todo, isCompleted },
   } = props;
@@ -69,7 +69,7 @@ Todo.View = function View(props: IChildrenProps) {
     <Styled.Root>
       <Styled.Form onChange={updateHandler} onSubmit={submitHandler}>
         <Styled.CheckBox name='checkbox' type='checkbox' defaultChecked={isCompleted} />
-        <Styled.Input name='todo' defaultValue={todo} readOnly={!editing} />
+        <Styled.Input name='todo' defaultValue={todo} readOnly={!editing} defaultChecked={isCompleted}/>
 
         <Styled.ButtonWrapper>
           {editing && <Styled.Button type='submit'>완료</Styled.Button>}
@@ -78,9 +78,15 @@ Todo.View = function View(props: IChildrenProps) {
               수정
             </Styled.Button>
           )}
+          {editing && 
           <Styled.Button onClick={deleteHandler} type='button'>
-            삭제
-          </Styled.Button>
+            취소
+          </Styled.Button>}
+          {!editing && (
+            <Styled.Button onClick={toggleEditing} type='button'>
+              삭제
+            </Styled.Button>
+          )}
         </Styled.ButtonWrapper>
       </Styled.Form>
     </Styled.Root>

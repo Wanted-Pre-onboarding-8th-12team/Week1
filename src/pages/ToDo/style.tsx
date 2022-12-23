@@ -30,5 +30,3 @@ export const Styled = {
     margin-top: 3rem;
   `,
 };
-
-// ${flexCenter("column")};
