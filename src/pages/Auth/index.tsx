@@ -1,23 +1,20 @@
-import { useState } from "react";
+import React, { PropsWithChildren } from "react";
 
-import { AuthForm } from "@/components/common/AuthForm";
+import { Navigate } from "react-router-dom";
 
-import { Styled } from "./style";
+interface AuthProps {
+  to: string;
+  login: boolean;
+}
 
-const Auth = () => {
-  const [mode, setMode] = useState<"Login" | "Join">("Login");
+function Auth(props: PropsWithChildren<AuthProps>): JSX.Element {
+  const { children, to, login } = props;
+  const user = localStorage.getItem("user");
 
-  const modeHandler = () => {
-    if (mode === "Login") setMode("Join");
-    if (mode === "Join") setMode("Login");
-  };
+  if (login && user) return <Navigate to={to} replace />;
+  if (!login && !user) return <Navigate to={to} replace />;
 
-  return (
-    <Styled.Root>
-      <Styled.Title>Login</Styled.Title>
-      <AuthForm mode={mode} modeHandler={modeHandler} />
-    </Styled.Root>
-  );
-};
+  return <>{children}</>;
+}
 
 export default Auth;
