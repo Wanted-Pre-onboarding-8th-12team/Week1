@@ -2,7 +2,7 @@
 
 ## 📕 개요
 
-**📎[배포링크 바로가기]()**
+**📎[배포링크 바로가기](https://wanted-12team-pre-assignment.netlify.app/todo)**
 
 ### 과제 목적
 
@@ -20,7 +20,7 @@
 
 | 류지창                                                                                           | 박준하                                                                                          | 백광천                                                                                          | 유제원                                                                                          | 정세연                                                                                          | 조영일                                                                                          |
 | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| <img src="https://avatars.githubusercontent.com/u/104156381?s=70&v=4" width="160" height="160"/> | <img src="https://avatars.githubusercontent.com/u/85827017?s=70&v=4" width="160" height="160"/> | <img src="https://avatars.githubusercontent.com/u/82658528?s=70&v=4" width="160" height="160"/> | <img src="https://avatars.githubusercontent.com/u/96014828?s=70&v=4" width="160" height="160"/> | <img src="https://avatars.githubusercontent.com/u/79056677?s=70&v=4" width="160" height="160"/> | <img src="https://avatars.githubusercontent.com/u/86599495?s=70&v=4" width="160" height="160"/> |
+| <img src="https://avatars.githubusercontent.com/u/104156381?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/85827017?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/82658528?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/96014828?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/79056677?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/86599495?s=70&v=4" width="100" height="100"/> |
 | [RyuJiChang](https://github.com/RyuJiChang)                                                      | [harseille](https://github.com/harseille)                                                       | [back0202](https://github.com/back0202)                                                         | [LLSJYY](https://github.com/LLSJYY)                                                             | [n0eyes](https://github.com/n0eyes)                                                             | [young1the](https://github.com/young1the)                                                       |
 
 ---
@@ -113,12 +113,10 @@ commit 메시지 규칙: `커밋타입`: `내용` 포멧으로 작성
 #### 사용 라이브러리
 
 1. TypeScript
-   TypeScript는 취업 시에 필수적인 기술스텍
-   TypeScript 사용에 **익숙해지기**위해서 사용하는 것으로 결정
+   TypeScript는 취업 시에 필수적인 기술스텍이기 때문에 TypeScript 사용에 **익숙해지기**위해서 사용하는 것으로 결정했습니다.
 
 2. React-router-dom@6.5
-   이전 버전과 다른 방식의 동작원리인 react-router-dom@6.5에 적응하가 위해서 사용
-   `loader`, `action`, 'RouterForm' 등 기능을 사용하여 코드를 간결하게 작성한다.
+   이전 버전과 다른 방식의 동작원리인 react-router-dom@6.5이 `loader`, `action`, 'RouterForm' 등 기능을 사용하여 코드를 간결하게 작성할 수 있어서 best practice로 선정했습니다.
 
 ```ts
 // action 사용 예시
@@ -148,13 +146,13 @@ import { Form as RouterForm } from "react-router-dom";
 
 type Unpacked<T> = T extends React.ForwardRefExoticComponent<infer U> ? U : T;
 
-function Form({ children, ...props }: PropsWithChildren<Unpacked<typeof RouterForm>>) {
+const Form = ({ children, ...props }: PropsWithChildren<Unpacked<typeof RouterForm>>) => {
   return <Styled.Form {...props}>{children}</Styled.Form>;
-}
+};
 ```
 
 3. ESLint
-   의존성을 고려해서 import/order를 설정
+   의존성을 고려해서 import/order를 설정하는 방식이 일관성이 있는 코드 구조를 만들 수 있어서 best practice로 선정했습니다.
 
 ```json
 "import/order": [
@@ -188,7 +186,7 @@ function Form({ children, ...props }: PropsWithChildren<Unpacked<typeof RouterFo
 ### 라우팅
 
 **인증/인가 처리**
-`Auth` 컴포넌트를 페이지 상단에 두어 authorization을 체크한다.
+`Auth` 컴포넌트를 페이지 상단에 두어 authorization을 체크하는 방식이 재사용성도 높고 라우터의 기능을 한 눈에 볼 수 있는 가독성이 이점이 있어서 Best Practice로 선정했습니다.
 
 ```tsx
 // Auth 컴포넌트의 child에 login일 필요 여부를 props로 내린다.
@@ -222,17 +220,75 @@ const Auth = (props: PropsWithChildren<AuthProps>): JSX.Element => {
 };
 ```
 
-### 페이지 컴포넌트 분리
+- React Architecture Patterns에 대해서 평소 호기심을 가진 팀원이 있었고,
+  그래서 관심사 분리가 잘 되고 , 스타일 컴포넌트 를 써보지 않은 팀원님의 의견이 있어서  
+  조건을 만족한 팀원분의 컴포넌트 구조를 Best Practice로 결정했습니다.
+
+```ts
+const Todo = () => {
+  const todoList = useLoaderData() as GetTodoResponse;
+
+  return (
+    <Styled.Root>
+      <Styled.Title>To Do List</Styled.Title>
+      <Styled.Main>
+        <InputForm />
+        <TodoList todoList={todoList} />
+      </Styled.Main>
+    </Styled.Root>
+  );
+};
+```
 
 ### 디렉토리 구조
+
+#### 가장 마지막 디렉토리 (Leaf Directory)
+
+```
+todo
+└─TodoList
+    ├─index.tsx
+    └─style.tsx
+```
+
+leaf directory에 `index` 파일을 생성해서 directory 이름과 상응하는 component 혹은 page를 두어서 관리했습니다.
+
+#### common, auth, todo
+
+```
+components
+├─auth
+├─common
+└─todo
+```
+
+TODO 서비스에서 크게 login과 join을 관리하는 **Auth** 부분 그리고 **Todo** 로 나뉘어집니다.
+그에 맞게 components 디렉토리에서 Auth에서 사용되는 파일들은 auth 디렉토리에 (`components/auth/AuthForm`),
+Todo에서 사용되는 파일들은 todo 디렉토리에 (`components/todo/TodoList`)두어서 분리하고,
+common 디렉토리에는 공통적으로 사용되는 component인 `button`, `input` 과 같은 컴포넌트를 두었습니다.
+
+#### src
+
+```
+src
+├─apis // api 통신에 필요한 파일 (`axios.create()`)
+├─components
+├─constants // 상수를 모아둔 파일 (`ERROR.EMAIL = "@를 포함한 올바른 이메일 양식을 입력해 주세요"`)
+├─pages
+├─styles // mixin, theme과 같은 style 파일 (`flexCenter = css`display: flex; justify-content: center; ...``)
+├─typing // TypeScript의 Type (`interface IAuthResponse {access_token: string;}`)
+└─utils // custom hook과 actions 파일 (`useInput`, `clear`, `dispatch`)
+```
 
 ### API 연동
 
 1. **Axios 공통 로직 분리**
-   REST API 통신과 에러처리를 위해 반복되는 로직 부분을 하나의 함수로 만들어서 재사용성 증대
+   api호출 중 에러처리가 가장 잘된 것을 Best Practice로 선정했습니다
+   api를 호출했을 때, to 함수를 이용해서 error 관리를 했습니다.  
+   axios에러라면 , alert으로 에러메세지를 띄워주고, 리액트 라우터의 에러 엘리멘트로 에러를 관리했습니다
 
 ```ts
-export async function to<T>(promise: Promise<T>): Promise<[null, T] | [unknown, null]> {
+export const async = async to<T>(promise: Promise<T>): Promise<[null, T] | [unknown, null]> => {
   try {
     return [null, await promise];
   } catch (error) {
@@ -245,17 +301,17 @@ export async function to<T>(promise: Promise<T>): Promise<[null, T] | [unknown, 
 ```
 
 2. 관심사에 따른 request 요청 분리
-   유지보수성을 높이기 위해 관심사를 분리하여 api 요청을 관리했다.
+   유지보수성을 높이기 위해 관심사를 분리하여 api 요청을 관리하는 것을 Best Practice로 설정했습니다.
 
 ```ts
 // Auth
-export async function join({ email, password }: AuthRequest) {
+export const join = async ({ email, password }: AuthRequest) => {
   const { data } = await client.post<AuthResponse>(PATH.JOIN, { ... });
 
   return data;
 }
 
-export async function login({ email, password }: AuthRequest) {
+export const login = async ({ email, password }: AuthRequest) => {
   const { data } = await client.post<AuthResponse>(PATH.LOGIN, { ... });
 
   localStorage.setItem("user", data.access_token);
@@ -294,8 +350,6 @@ export const deleteToDo = async ({ id }: DeleteToDoRequest) => {
   return data;
 };
 ```
-
-### 최적화
 
 ---
 

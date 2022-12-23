@@ -1,10 +1,10 @@
 import Todo from "@/components/todo/Todo";
-import { GetTodoResponse } from "@/typing/todo";
+import { IGetTodoResponse } from "@/typing/todo";
 
 import { Styled } from "./style";
 
 interface ITodoListProps {
-  todoList: GetTodoResponse;
+  todoList: IGetTodoResponse;
 }
 
 const TodoList = (props: ITodoListProps) => {

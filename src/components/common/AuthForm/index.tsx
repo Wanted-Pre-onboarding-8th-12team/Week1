@@ -8,11 +8,11 @@ import { Styled } from "./style";
 
 import Input from "../Input";
 
-interface AuthFormProps {
+interface IAuthFormProps {
   mode: "Login" | "Join";
 }
 
-export const AuthForm = ({ mode }: AuthFormProps) => {
+export const AuthForm = ({ mode }: IAuthFormProps) => {
   if (mode === "Login") return <AuthForm.Login />;
   if (mode === "Join") return <AuthForm.Join />;
 
