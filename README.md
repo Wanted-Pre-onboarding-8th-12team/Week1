@@ -162,6 +162,10 @@ function Form({ children, ...props }: PropsWithChildren<Unpacked<typeof RouterFo
 
 ### 라우팅
 
+#### 인증/인가 처리
+
+`Auth` 컴포넌트를 페이지 상단에 두어
+
 ### 페이지 컴포넌트 분리
 
 ### 디렉토리 구조
