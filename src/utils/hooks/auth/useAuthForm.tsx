@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AUTH } from "@/constants/auth";
 import { Auth, Result, Validator } from "@/typing/auth";
 
-import useInput from "./useInput";
+import useInput from "../common/useInput";
 
 export const validator: Validator = {
   auth: ({ email, password, pwCheck = "" }: Auth) => {

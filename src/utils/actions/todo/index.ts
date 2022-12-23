@@ -22,7 +22,7 @@ export async function todoAction({ request }: ActionFunctionArgs) {
             id: payload?.id,
             todo,
             isCompleted,
-          })
+          }),
         );
       }
       case "CHECK_TODO": {
@@ -31,7 +31,7 @@ export async function todoAction({ request }: ActionFunctionArgs) {
             id: payload?.id,
             todo,
             isCompleted,
-          })
+          }),
         );
       }
 

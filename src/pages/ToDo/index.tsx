@@ -1,10 +1,10 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData } from "react-router-dom";
 
-import { to } from '@/apis';
-import { getTodo } from '@/apis/todo';
+import { to } from "@/apis";
+import { getTodo } from "@/apis/todo";
 import InputForm from "@/components/todo/InputForm";
 import TodoList from "@/components/todo/TodoList";
-import { GetTodoResponse } from '@/typing/todo'
+import { GetTodoResponse } from "@/typing/todo";
 
 import { Styled } from "./style";
 
@@ -20,12 +20,12 @@ const Todo = () => {
       </Styled.Main>
     </Styled.Root>
   );
-}
+};
 
 export default Todo;
 
-export  const todoLoader= async() => {
+export const todoLoader = async () => {
   const [error, data] = await to<GetTodoResponse>(getTodo());
 
   return data ?? error;
-}
+};

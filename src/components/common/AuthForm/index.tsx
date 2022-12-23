@@ -2,7 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import useAuthForm from "@/utils/actions/hooks/common/useAuthForm";
+import useAuthForm from "@/utils/hooks/auth/useAuthForm";
 
 import { Styled } from "./style";
 

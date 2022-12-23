@@ -1,75 +1,88 @@
-import { useState, useRef } from "react";
+import { FormEvent, useState } from "react";
 
-import { to } from "@/apis";
-import { deleteTodo, updateTodo } from "@/apis/todo";
+import { UnPacked } from "@/typing/common";
+import { GetTodoResponse } from "@/typing/todo";
+import { dispatch } from "@/utils/actions/todo/withAction";
+import useTrigger from "@/utils/hooks/todo/useTrigger";
 
 import { Styled } from "./style";
 
-function Todo(props: any) {
-  const { getTodoList, data } = props;
-  const [readOnly, setReadOnly] = useState(true);
-  const [todoData, setTodoData] = useState({
-    id: data.id,
-    todo: data.todo,
-    isCompleted: data.isCompleted,
-  });
+interface IToDoProps {
+  data: UnPacked<GetTodoResponse>;
+}
 
-  const textContent: any = {
-    저장: async () => {
-      const [error, response] = await to<any>(updateTodo(todoData)); // payload 추가하기(value)
-      if (error) {
-        debugger;
-        alert("update failed");
-      } else {
-        setTodoData((prev) => ({ ...prev, todo: response.todo }));
-      }
-    },
-    삭제: async () => {
-      await deleteTodo(data.id);
-      await getTodoList();
-    } /* page에 있어도 됩니다. */,
-    취소: () => {
-      setTodoData((prev) => ({ ...prev, todo: data.todo }));
-      //기존 글자 넣어주기
-      // react Memo 쓰면 가능할거같긴함 삭제 => 딜리트 로직 => 겟데이터
-    },
-    수정: () => {
-      // update
-      // setvalue(response);
-    },
+interface IChildrenProps {
+  data: IToDoProps["data"];
+}
+
+function Todo(props: IToDoProps) {
+  const { data } = props;
+
+  return <Todo.View data={data} />;
+}
+
+export default Todo;
+
+Todo.View = function View(props: IChildrenProps) {
+  const {
+    data: { id, todo, isCompleted },
+  } = props;
+
+  const [editing, setEditing] = useState(false);
+  const trigger = useTrigger();
+
+  const toggleEditing = () => setEditing((prev) => !prev);
+
+  const updateHandler = (e: FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(e.currentTarget);
+    const name = (e.target as HTMLInputElement).name;
+
+    if (name !== "checkbox") return;
+
+    dispatch({
+      type: "CHECK_TODO",
+      payload: { id },
+    });
+
+    trigger("put", formData);
   };
 
-  const onClickModifyHandler = (e: any) => {
-    textContent[e.target.textContent]();
-    setReadOnly(!readOnly);
-  };
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(e.currentTarget);
 
-  const valueHandler = (e: any) => {
-    setTodoData((prev) => ({ ...prev, todo: e.target.value }));
+    dispatch(
+      {
+        type: "EDIT_TODO",
+        payload: { id },
+      },
+      { callback: toggleEditing },
+    );
+
+    trigger("put", formData);
+  };
+  const deleteHandler = () => {
+    dispatch({ type: "DELETE_TODO", payload: { id } });
+    trigger("delete");
   };
 
   return (
     <Styled.Root>
-      <Styled.Form>
-        <Styled.CheckBox name='checkbox' type='checkbox' />
-        <Styled.Input
-          name='todo'
-          value={todoData.todo}
-          onChange={valueHandler}
-          readOnly={readOnly}
-        />
-        <Styled.ButtonWrapper>
-          <Styled.Button type='button' onClick={onClickModifyHandler}>
-            {readOnly ? "수정" : "저장"}
-          </Styled.Button>
+      <Styled.Form onChange={updateHandler} onSubmit={submitHandler}>
+        <Styled.CheckBox name='checkbox' type='checkbox' defaultChecked={isCompleted} />
+        <Styled.Input name='todo' defaultValue={todo} readOnly={!editing} />
 
-          <Styled.Button type='button' onClick={onClickModifyHandler}>
-            {readOnly ? "삭제" : "취소"}
+        <Styled.ButtonWrapper>
+          {editing && <Styled.Button type='submit'>완료</Styled.Button>}
+          {!editing && (
+            <Styled.Button onClick={toggleEditing} type='button'>
+              수정
+            </Styled.Button>
+          )}
+          <Styled.Button onClick={deleteHandler} type='button'>
+            삭제
           </Styled.Button>
         </Styled.ButtonWrapper>
       </Styled.Form>
     </Styled.Root>
   );
-}
-
-export default Todo;
+};

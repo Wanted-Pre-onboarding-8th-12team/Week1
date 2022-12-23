@@ -12,8 +12,8 @@ import { Join } from "./pages/Join";
 import { Login } from "./pages/Login";
 import Todo, { todoLoader } from "./pages/Todo";
 import { joinAction, loginAction } from "./utils/actions";
-import { todoAction } from "./utils/actions/todo"
-import { withAction } from "./utils/actions/todo/withAction"
+import { todoAction } from "./utils/actions/todo";
+import { withAction } from "./utils/actions/todo/withAction";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

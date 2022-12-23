@@ -8,7 +8,6 @@
       "@pages/*": ["pages/*"],
       "@router": ["router"],
       "@components": ["components/*"]
-
     }
   }
 }
