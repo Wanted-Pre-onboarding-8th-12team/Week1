@@ -1,25 +1,25 @@
 import { FormEvent, useState } from "react";
 
-import { UnPacked } from "@/typing/common";
-import { GetTodoResponse } from "@/typing/todo";
+import { TUnPacked } from "@/typing/common";
+import { IGetTodoResponse } from "@/typing/todo";
 import { dispatch } from "@/utils/actions/todo/withAction";
 import useTrigger from "@/utils/hooks/todo/useTrigger";
 
 import { Styled } from "./style";
 
 interface IToDoProps {
-  data: UnPacked<GetTodoResponse>;
+  data: TUnPacked<IGetTodoResponse>;
 }
 
 interface IChildrenProps {
   data: IToDoProps["data"];
 }
 
-function Todo(props: IToDoProps) {
+const Todo = (props: IToDoProps) => {
   const { data } = props;
 
   return <Todo.View data={data} />;
-}
+};
 
 export default Todo;
 

@@ -1,27 +1,27 @@
-interface Todo {
+interface ITodo {
   id: number;
   todo: string;
   isCompleted: boolean;
   userId: number;
 }
 
-export interface GetTodoResponse extends Array<Todo> {}
+export interface IGetTodoResponse extends Array<ITodo> {}
 
-export interface CreateTodoRequest {
+export interface ICreateTodoRequest {
   todo: string;
 }
-export interface CreateTodoResponse extends Todo {}
+export interface ICreateTodoResponse extends ITodo {}
 
-export interface UpdateTodoRequest {
+export interface IUpdateTodoRequest {
   id: number;
   todo: string;
   isCompleted: boolean;
 }
 
-export interface UpdateTodoResponse extends Todo {}
+export interface IUpdateTodoResponse extends ITodo {}
 
-export interface DeleteTodoRequest {
+export interface IDeleteTodoRequest {
   id: number;
 }
 
-export interface DeleteTodoResponse {}
+export interface IDeleteTodoResponse {}

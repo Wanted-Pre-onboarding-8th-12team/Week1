@@ -2,12 +2,12 @@ import React, { PropsWithChildren } from "react";
 
 import { Navigate } from "react-router-dom";
 
-interface AuthProps {
+interface IAuthProps {
   to: string;
   login: boolean;
 }
 
-function Auth(props: PropsWithChildren<AuthProps>): JSX.Element {
+const Auth = (props: PropsWithChildren<IAuthProps>): JSX.Element => {
   const { children, to, login } = props;
   const user = localStorage.getItem("user");
 
@@ -15,6 +15,6 @@ function Auth(props: PropsWithChildren<AuthProps>): JSX.Element {
   if (!login && !user) return <Navigate to={to} replace />;
 
   return <>{children}</>;
-}
+};
 
 export default Auth;

@@ -5,7 +5,7 @@ import { createTodo, deleteTodo, updateTodo } from "@/apis/todo";
 
 import { consume } from "./withAction";
 
-export async function todoAction({ request }: ActionFunctionArgs) {
+export const todoAction = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
 
   const todo = formData.get("todo") as string;
@@ -43,4 +43,4 @@ export async function todoAction({ request }: ActionFunctionArgs) {
         return null;
     }
   });
-}
+};

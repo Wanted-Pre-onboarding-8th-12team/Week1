@@ -4,12 +4,12 @@ import { to } from "@/apis";
 import { getTodo } from "@/apis/todo";
 import InputForm from "@/components/todo/InputForm";
 import TodoList from "@/components/todo/TodoList";
-import { GetTodoResponse } from "@/typing/todo";
+import { IGetTodoResponse } from "@/typing/todo";
 
 import { Styled } from "./style";
 
 const Todo = () => {
-  const todoList = useLoaderData() as GetTodoResponse;
+  const todoList = useLoaderData() as IGetTodoResponse;
 
   return (
     <Styled.Root>
@@ -25,7 +25,7 @@ const Todo = () => {
 export default Todo;
 
 export const todoLoader = async () => {
-  const [error, data] = await to<GetTodoResponse>(getTodo());
+  const [error, data] = await to<IGetTodoResponse>(getTodo());
 
   return data ?? error;
 };
