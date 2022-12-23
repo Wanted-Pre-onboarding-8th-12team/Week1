@@ -20,7 +20,7 @@
 
 | 류지창                                                                                           | 박준하                                                                                          | 백광천                                                                                          | 유제원                                                                                          | 정세연                                                                                          | 조영일                                                                                          |
 | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| <img src="https://avatars.githubusercontent.com/u/104156381?s=70&v=4" width="120" height="120"/> | <img src="https://avatars.githubusercontent.com/u/85827017?s=70&v=4" width="120" height="120"/> | <img src="https://avatars.githubusercontent.com/u/82658528?s=70&v=4" width="120" height="120"/> | <img src="https://avatars.githubusercontent.com/u/96014828?s=70&v=4" width="120" height="120"/> | <img src="https://avatars.githubusercontent.com/u/79056677?s=70&v=4" width="120" height="120"/> | <img src="https://avatars.githubusercontent.com/u/86599495?s=70&v=4" width="120" height="120"/> |
+| <img src="https://avatars.githubusercontent.com/u/104156381?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/85827017?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/82658528?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/96014828?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/79056677?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/86599495?s=70&v=4" width="100" height="100"/> |
 | [RyuJiChang](https://github.com/RyuJiChang)                                                      | [harseille](https://github.com/harseille)                                                       | [back0202](https://github.com/back0202)                                                         | [LLSJYY](https://github.com/LLSJYY)                                                             | [n0eyes](https://github.com/n0eyes)                                                             | [young1the](https://github.com/young1the)                                                       |
 
 ---
@@ -343,8 +343,6 @@ export const deleteToDo = async ({ id }: DeleteToDoRequest) => {
   return data;
 };
 ```
-
-### 최적화
 
 ---
 
