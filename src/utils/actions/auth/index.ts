@@ -2,26 +2,26 @@ import { ActionFunctionArgs, redirect } from "react-router-dom";
 
 import { to } from "@/apis";
 import { join, login } from "@/apis/auth";
-import { AuthResponse } from "@/typing/auth/index";
+import { IAuthResponse } from "@/typing/auth/index";
 
-export async function loginAction({ request }: ActionFunctionArgs) {
+export const loginAction = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
 
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  const [error, data] = await to<AuthResponse>(login({ email, password }));
+  const [error, data] = await to<IAuthResponse>(login({ email, password }));
 
   return data ? redirect("/todo") : null;
-}
+};
 
-export async function joinAction({ request }: ActionFunctionArgs) {
+export const joinAction = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
 
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  const [error, data] = await to<AuthResponse>(join({ email, password }));
+  const [error, data] = await to<IAuthResponse>(join({ email, password }));
 
   return data ? redirect("/") : null;
-}
+};

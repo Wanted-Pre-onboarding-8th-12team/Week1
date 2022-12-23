@@ -17,7 +17,7 @@ export const PATH = {
   DELETE_TODO: "/todos",
 };
 
-export async function to<T>(promise: Promise<T>): Promise<[null, T] | [unknown, null]> {
+export const to = async <T>(promise: Promise<T>): Promise<[null, T] | [unknown, null]> => {
   try {
     return [null, await promise];
   } catch (error) {
@@ -26,4 +26,4 @@ export async function to<T>(promise: Promise<T>): Promise<[null, T] | [unknown, 
 
     return [error, null];
   }
-}
+};

@@ -1,22 +1,22 @@
-import { ModifyToString } from "../common";
+import { TModifyToString } from "../common";
 
-export interface Auth {
+export interface IAuth {
   email?: FormDataEntryValue | null;
   password?: FormDataEntryValue | null;
   pwCheck?: FormDataEntryValue | null;
 }
 
-export type Result<T> = { isError: boolean; errors: ModifyToString<T> };
+export type TResult<T> = { isError: boolean; errors: TModifyToString<T> };
 
-export interface Validator {
-  auth: (data: Auth) => Result<Auth>;
+export interface IValidator {
+  auth: (data: IAuth) => TResult<IAuth>;
 }
 
-export interface AuthRequest {
+export interface IAuthRequest {
   email: string;
   password: string;
 }
 
-export interface AuthResponse {
+export interface IAuthResponse {
   access_token: string;
 }

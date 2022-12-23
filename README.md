@@ -2,7 +2,7 @@
 
 ## 📕 개요
 
-**📎[배포링크 바로가기]()**
+**📎[배포링크 바로가기](https://wanted-12team-pre-assignment.netlify.app/todo)**
 
 ### 과제 목적
 
@@ -139,9 +139,9 @@ import { Form as RouterForm } from "react-router-dom";
 
 type Unpacked<T> = T extends React.ForwardRefExoticComponent<infer U> ? U : T;
 
-function Form({ children, ...props }: PropsWithChildren<Unpacked<typeof RouterForm>>) {
+const Form = ({ children, ...props }: PropsWithChildren<Unpacked<typeof RouterForm>>) => {
   return <Styled.Form {...props}>{children}</Styled.Form>;
-}
+};
 ```
 
 3. ESLint
@@ -269,7 +269,7 @@ src
 ├─constants // 상수를 모아둔 파일 (`ERROR.EMAIL = "@를 포함한 올바른 이메일 양식을 입력해 주세요"`)
 ├─pages
 ├─styles // mixin, theme과 같은 style 파일 (`flexCenter = css`display: flex; justify-content: center; ...``)
-├─typing // TypeScript의 Type (`interface AuthResponse {access_token: string;}`)
+├─typing // TypeScript의 Type (`interface IAuthResponse {access_token: string;}`)
 └─utils // custom hook과 actions 파일 (`useInput`, `clear`, `dispatch`)
 ```
 
@@ -281,7 +281,7 @@ src
    axios에러라면 , alert으로 에러메세지를 띄워주고, 리액트 라우터의 에러 엘리멘트로 에러를 관리했습니다
 
 ```ts
-export async function to<T>(promise: Promise<T>): Promise<[null, T] | [unknown, null]> {
+export const async = async to<T>(promise: Promise<T>): Promise<[null, T] | [unknown, null]> => {
   try {
     return [null, await promise];
   } catch (error) {
@@ -298,13 +298,13 @@ export async function to<T>(promise: Promise<T>): Promise<[null, T] | [unknown, 
 
 ```ts
 // Auth
-export async function join({ email, password }: AuthRequest) {
+export const join = async ({ email, password }: AuthRequest) => {
   const { data } = await client.post<AuthResponse>(PATH.JOIN, { ... });
 
   return data;
 }
 
-export async function login({ email, password }: AuthRequest) {
+export const login = async ({ email, password }: AuthRequest) => {
   const { data } = await client.post<AuthResponse>(PATH.LOGIN, { ... });
 
   localStorage.setItem("user", data.access_token);

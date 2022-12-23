@@ -2,16 +2,16 @@ import React, { memo, ButtonHTMLAttributes, PropsWithChildren } from "react";
 
 import { Styled, Variant } from "./style";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
 }
 
-function Button({ children, ...props }: PropsWithChildren<ButtonProps>) {
+const Button = ({ children, ...props }: PropsWithChildren<IButtonProps>) => {
   return (
     <Styled.Button {...props} variant={props.variant ?? "basic"}>
       {children}
     </Styled.Button>
   );
-}
+};
 
 export default memo(Button);

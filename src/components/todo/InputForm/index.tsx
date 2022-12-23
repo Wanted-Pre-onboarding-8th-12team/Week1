@@ -3,7 +3,7 @@ import { dispatch } from "@/utils/actions/todo/withAction";
 
 import { Styled } from "./style";
 
-function InputForm() {
+const InputForm = () => {
   const submitHandler = () => dispatch({ type: "CREATE_TODO" });
 
   return (
@@ -14,6 +14,6 @@ function InputForm() {
       </Styled.Form>
     </Styled.Root>
   );
-}
+};
 
 export default InputForm;
