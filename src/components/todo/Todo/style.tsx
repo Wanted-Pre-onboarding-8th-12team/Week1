@@ -38,11 +38,11 @@ export const Styled = {
     height: 4rem;
   `,
 
-  Input: styled(Input)<{defaultChecked:boolean}>`
+  Input: styled(Input)<{ defaultChecked: boolean }>`
     width: 100%;
 
     margin-right: 2rem;
-    text-decoration: ${({ defaultChecked }) => (defaultChecked ? 'line-through' : 'none')};
+    text-decoration: ${({ defaultChecked }) => (defaultChecked ? "line-through" : "none")};
   `,
 
   CheckBox: styled(Input)`

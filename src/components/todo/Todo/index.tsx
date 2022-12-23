@@ -69,7 +69,12 @@ Todo.View = (props: IChildrenProps) => {
     <Styled.Root>
       <Styled.Form onChange={updateHandler} onSubmit={submitHandler}>
         <Styled.CheckBox name='checkbox' type='checkbox' defaultChecked={isCompleted} />
-        <Styled.Input name='todo' defaultValue={todo} readOnly={!editing} defaultChecked={isCompleted}/>
+        <Styled.Input
+          name='todo'
+          defaultValue={todo}
+          readOnly={!editing}
+          defaultChecked={isCompleted}
+        />
 
         <Styled.ButtonWrapper>
           {editing && <Styled.Button type='submit'>완료</Styled.Button>}
@@ -78,10 +83,11 @@ Todo.View = (props: IChildrenProps) => {
               수정
             </Styled.Button>
           )}
-          {editing && 
-          <Styled.Button onClick={deleteHandler} type='button'>
-            취소
-          </Styled.Button>}
+          {editing && (
+            <Styled.Button onClick={deleteHandler} type='button'>
+              취소
+            </Styled.Button>
+          )}
           {!editing && (
             <Styled.Button onClick={toggleEditing} type='button'>
               삭제
