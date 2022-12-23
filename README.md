@@ -26,7 +26,14 @@
 ---
 
 ## 🖥 Demo
-
+회원가입 동작 시연<br><br>
+![회원가입 동작](https://user-images.githubusercontent.com/104156381/209335798-d4a47629-b334-4547-b903-ab61fb4669c8.gif)<br><br><br><br>
+로그인 동작 시연<br><br>
+![로그인 동작](https://user-images.githubusercontent.com/104156381/209335797-f4f078b8-d386-4991-9e20-aa4b996dda81.gif)<br><br><br><br>
+CRUD, 체크박스 동작 시연<br><br>
+![CRUD 및 체크박스 동작](https://user-images.githubusercontent.com/104156381/209335791-5dfe67af-9fb4-4b49-9837-fe3e6c926e54.gif)<br><br><br><br>
+리다이렉트 동작 시연<br><br>
+![리다이렉트 동작](https://user-images.githubusercontent.com/104156381/209335789-1955c84f-fa10-4ec4-8c3a-f17277ac5aad.gif)
 ---
 
 ## ⚡️ 사용 라이브러리
