@@ -84,12 +84,12 @@ Todo.View = (props: IChildrenProps) => {
             </Styled.Button>
           )}
           {editing && (
-            <Styled.Button onClick={deleteHandler} type='button'>
+            <Styled.Button onClick={toggleEditing} type='button'>
               취소
             </Styled.Button>
           )}
           {!editing && (
-            <Styled.Button onClick={toggleEditing} type='button'>
+            <Styled.Button onClick={deleteHandler} type='button'>
               삭제
             </Styled.Button>
           )}
