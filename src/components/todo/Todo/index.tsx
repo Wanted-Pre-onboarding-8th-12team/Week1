@@ -18,6 +18,7 @@ function Todo(props: any) {
     저장: async () => {
       const [error, response] = await to<any>(updateTodo(todoData)); // payload 추가하기(value)
       if (error) {
+        debugger;
         alert("update failed");
       } else {
         setTodoData((prev) => ({ ...prev, todo: response.todo }));
